@@ -1,10 +1,14 @@
 const express = require('express')
 const cors = require('cors');
 const { db } = require('./db/db');
-const {readdirSync} = require('fs')
 const app = express()
 
-require('dotenv').config()
+// require('dotenv').config()
+if (process.env.NODE_ENV !== "PRODUCTION") {
+    require("dotenv").config({
+      path: ".env",
+    });
+  }
 
 const PORT = process.env.PORT
 
