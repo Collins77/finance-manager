@@ -25,6 +25,19 @@ const AccountSchema = new mongoose.Schema({
         default: 0,
         trim: true
     },
+    withdrawals: [
+        {
+          amount: {
+            type: Number,
+            required: true,
+          },
+          timestamp: {
+            type: Date,
+            default: Date.now,
+          },
+          
+        },
+      ],
     
 }, {timestamps: true})
 

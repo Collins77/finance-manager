@@ -1,15 +1,18 @@
-import { Box, Button, IconButton, Link, Typography, useTheme } from "@mui/material";
+import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
+import AssessmentIcon from '@mui/icons-material/Assessment';
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TrafficIcon from "@mui/icons-material/Traffic";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
 import StatBox from "../../components/StatBox";
 import { useGlobalContext } from "../../context/globalContext";
 import { useEffect } from "react";
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -41,8 +44,8 @@ const Dashboard = () => {
             }}
             
           >
-            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Go to Reports
+            <AssessmentIcon sx={{ mr: "10px" }} />
+            <a href="/bar" style={{ color: "white", textDecoration: "none"}}>Go To Reports</a>
           </Button>
         </Box>
       </Box>
@@ -66,7 +69,7 @@ const Dashboard = () => {
             title={totalAmount()}
             subtitle="Total Revenue"
             progress="0.75"
-            increase={`${percentageIncrease}%`}
+            // increase={`${percentageIncrease}%`}
             icon={
               <AttachMoneyIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -80,18 +83,23 @@ const Dashboard = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
+          position="relative"
         >
           <StatBox
-            title={`${totalAmountThisMonth}`} 
-            subtitle="Monthly Collection"
+            title={`${totalAmountThisMonth.totalAmount}`} 
+            subtitle={`Collection for ${totalAmountThisMonth.month}`}
             progress="0.80"
-            increase="+43%"
+            // increase="+43%"
             icon={
-              <TrafficIcon
+              <BarChartIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
-            }
+            }  
           />
+          <a href="/collections" style={{ color: "purple", position: "absolute", bottom: 4, right: 4, display: "flex", alignItems: "center", justifyContent: "center"}}>
+            Collections
+            <ArrowForwardIcon />
+          </a>
         </Box>
         <Box
           gridColumn="span 3"
@@ -99,18 +107,23 @@ const Dashboard = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
+          position="relative"
         >
           <StatBox
             title={getTotalAccountBalance()}
             subtitle="Accounts Balance"
             progress="0.50"
-            increase="+21%"
+            // increase="+21%"
             icon={
               <PointOfSaleIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
           />
+          <a href="/form" style={{ color: "purple", position: "absolute", bottom: 4, right: 4, display: "flex", alignItems: "center", justifyContent: "center"}}>
+            Accounts
+            <ArrowForwardIcon />
+          </a>
         </Box>
         <Box
           gridColumn="span 3"
@@ -152,7 +165,7 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.grey[100]}
               >
-                Revenue Generated
+                Revenue Collected
               </Typography>
               <Typography
                 variant="h3"

@@ -1,9 +1,10 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, TextField } from "@mui/material";
 import Header from "../../components/Header";
 import { useState } from "react";
 import axios from "axios";
 import { server } from "../../server";
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const AddAccount = () => {
 
@@ -13,6 +14,7 @@ const AddAccount = () => {
         bank: "",
         percentage: "",
       });
+    const [loading, setLoading] = useState(false);
     
       const handleChange = (e) => {
         setFormData({
@@ -24,9 +26,35 @@ const AddAccount = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
     
+        // try {
+        //   // Make a request to your server to save the amount and date
+        //   await axios.post(`${server}account/add-account`, formData); 
+    
+        //   // Reset the form after successful submission
+        //   setFormData({
+        //     title: "",
+        //     bank: "",
+        //     percentage: "",
+        //   });
+
+        //     // window.location.reload();
+        //     navigate('/form');
+        // } catch (error) {
+        //   console.error("Error submitting form:", error);
+        // }
         try {
-          // Make a request to your server to save the amount and date
-          await axios.post(`${server}account/add-account`, formData); 
+          setLoading(true);
+    
+          // Validate input (example: check if percentage is a valid number)
+          const parsedPercentage = parseFloat(formData.percentage);
+          if (isNaN(parsedPercentage) || parsedPercentage < 0 || parsedPercentage > 100) {
+            // Handle invalid input (e.g., show an error message)
+            console.error("Invalid percentage input");
+            return;
+          }
+    
+          // Make a request to your server to save the account details
+          await axios.post(`${server}account/add-account`, formData);
     
           // Reset the form after successful submission
           setFormData({
@@ -34,11 +62,18 @@ const AddAccount = () => {
             bank: "",
             percentage: "",
           });
-
-            // window.location.reload();
-            navigate('/form');
+    
+          // Navigate to the desired location
+          navigate('/form');
+          toast.success('Account added successfully!');
         } catch (error) {
-          console.error("Error submitting form:", error);
+          if (error.response) {
+            toast.error(`Error: ${error.response.data.error}`);
+          } else {
+            toast.error('An unexpected error occurred.');
+          }
+        } finally {
+          setLoading(false);
         }
       };
     
@@ -87,7 +122,7 @@ const AddAccount = () => {
           </Box>
           <Box display="flex" justifyContent="flex-end" mt="20px">
             <Button type="submit" color="primary" variant="contained">
-              Add Account
+            {loading ? <CircularProgress size={24} color="inherit" /> : "Add Account"}
             </Button>
           </Box>
         </form>

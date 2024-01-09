@@ -18,6 +18,8 @@ import Collections from "./scenes/team";
 import AddCollection from "./scenes/AddCollection/AddCollection";
 import AddAccount from "./scenes/AddAccount/AddAccount";
 import WithdrawForm from "./scenes/WithdrawForm/WithdrawForm";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -49,8 +51,20 @@ function App() {
               <Route path="/geography" element={<Geography />} />
             </Routes>
           </main>
-        </div>
+        </div>    
       </ThemeProvider>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       </BrowserRouter>
     </ColorModeContext.Provider>
   );

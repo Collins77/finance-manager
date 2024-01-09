@@ -15,6 +15,7 @@ export const GlobalProvider = ({children}) => {
     const [error, setError] = useState(null)
     const [previousTotalAmount, setPreviousTotalAmount] = useState(0);
     const [totalWithdrawn, setTotalWithdrawn] = useState(0);
+    const [withdrawals, setWithdrawals] = useState([]);
 
     //calculate incomes
     const addAmount = async (amount) => {
@@ -64,28 +65,36 @@ export const GlobalProvider = ({children}) => {
         return totalAmount.toLocaleString();
     }
 
-  const [totalAmountThisMonth, setTotalAmountThisMonth] = useState(0);
-
+  
+  const [totalAmountThisMonth, setTotalAmountThisMonth] = useState({
+    month: '',
+    totalAmount: 0,
+  });
+  
   // Effect to update the total amount whenever new amounts are added
   useEffect(() => {
     // Calculate the total amount for the current month
     const calculateTotalAmountThisMonth = () => {
-      const currentMonth = new Date().getMonth() + 1; // Adding 1 because getMonth() returns a zero-based index
+      const currentMonth = new Date().toLocaleString('default', { month: 'long' });
       const currentYear = new Date().getFullYear();
-
+  
       const filteredAmounts = amounts.filter((amount) => {
         const date = new Date(amount.createdAt);
-        return date.getMonth() + 1 === currentMonth && date.getFullYear() === currentYear;
+        return date.getMonth() + 1 === new Date().getMonth() + 1 && date.getFullYear() === currentYear;
       });
-
+  
       const totalAmount = filteredAmounts.reduce((acc, amount) => acc + amount.amount, 0);
-
-      setTotalAmountThisMonth(totalAmount);
+  
+      setTotalAmountThisMonth({
+        month: currentMonth,
+        totalAmount: totalAmount,
+      });
     };
-
+  
     // Call the function to calculate the total amount for the current month
     calculateTotalAmountThisMonth();
-  }, [amounts]); 
+  }, [amounts]);
+  
 
     const getTotalIncome = async () => {
         try {
@@ -171,6 +180,7 @@ export const GlobalProvider = ({children}) => {
           setError(err.response.data.message);
         }
       };
+      
 
 
     return (
@@ -186,6 +196,7 @@ export const GlobalProvider = ({children}) => {
             updateAccount,
             totalIncome,
             totalAmountThisMonth,
+            // getWithdrawalsByAccount,
             addAccount,
             getAccounts,
             deleteAccount,
