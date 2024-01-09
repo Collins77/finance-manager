@@ -2,9 +2,9 @@ import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import AssessmentIcon from '@mui/icons-material/Assessment';
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
@@ -12,20 +12,17 @@ import StatBox from "../../components/StatBox";
 import { useGlobalContext } from "../../context/globalContext";
 import { useEffect } from "react";
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import BarChartIcon from '@mui/icons-material/BarChart';
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const {totalAmount,amounts, totalWithdrawn, getAmounts, getAccounts, totalAmountThisMonth, getTotalAccountBalance, getPercentageIncreaseTotalAmount} = useGlobalContext()
+  const {totalAmount,amounts, totalWithdrawn, getAmounts, getAccounts, totalAmountThisMonth, getTotalAccountBalance} = useGlobalContext()
 
   useEffect(() => {
     getAmounts()
     getAccounts();
   }, [getAmounts, getAccounts])
 
-
-  const percentageIncrease = getPercentageIncreaseTotalAmount();
 
   return (
     <Box m="20px">
@@ -91,7 +88,7 @@ const Dashboard = () => {
             progress="0.80"
             // increase="+43%"
             icon={
-              <BarChartIcon
+              <AccountBalanceIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }  
@@ -115,7 +112,7 @@ const Dashboard = () => {
             progress="0.50"
             // increase="+21%"
             icon={
-              <PointOfSaleIcon
+              <AccountBalanceWalletIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }

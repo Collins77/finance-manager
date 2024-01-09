@@ -11,6 +11,9 @@ const PORT = process.env.PORT
 //middlewares
 app.use(express.json())
 app.use(cors())
+app.use("/test", (req, res) => {
+    res.send("Hello world!");
+});
 
 const amountRoutes = require('./routes/amount');
 const accountRoutes = require('./routes/account');

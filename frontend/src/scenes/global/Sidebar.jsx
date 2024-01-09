@@ -167,8 +167,8 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             {/* <Item
-              title="Account Analytics"
-              to="/calendar"
+              title="Withdrawals"
+              to="/withdrawals"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

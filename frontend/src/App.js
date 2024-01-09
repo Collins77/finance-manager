@@ -20,6 +20,7 @@ import AddAccount from "./scenes/AddAccount/AddAccount";
 import WithdrawForm from "./scenes/WithdrawForm/WithdrawForm";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Withdrawals from "./scenes/withdrawals";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -40,6 +41,7 @@ function App() {
               <Route path="/add-collection" element={<AddCollection />} />
               <Route path="/add-account" element={<AddAccount />} />
               <Route path="/withdraw/:id" element={<WithdrawForm />} />
+              <Route path="/withdrawals" element={<Withdrawals />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />
