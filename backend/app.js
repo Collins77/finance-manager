@@ -14,7 +14,10 @@ const PORT = process.env.PORT
 
 //middlewares
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: ['http://finance.inc.valid.co.ke',],
+    credentials: true
+  }));
 app.use("/", (req, res) => {
     res.send("Hello world!");
 });

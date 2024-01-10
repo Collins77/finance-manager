@@ -1,1 +1,1 @@
-export const server = 'http://localhost:5000/api/v1/'
+export const server = 'https://finance-manager-gj35.vercel.app/api/v1/'
