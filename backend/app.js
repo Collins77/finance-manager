@@ -18,9 +18,9 @@ app.use(cors({
     origin: ['http://finance.inc.valid.co.ke',],
     credentials: true
   }));
-app.use("/", (req, res) => {
-    res.send("Hello world!");
-});
+// app.use("/", (req, res) => {
+//     res.send("Hello world!");
+// });
 
 const amountRoutes = require('./routes/amount');
 const accountRoutes = require('./routes/account');
